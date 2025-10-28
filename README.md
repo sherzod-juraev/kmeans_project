@@ -1,4 +1,4 @@
-🧠 KMeans++ Async Web API
+# 🧠 KMeans++ Async Web API
 Overview
 
 This project implements an asynchronous FastAPI-based web service that provides user authentication, chat management, and machine learning clustering using the KMeans++ algorithm.
@@ -7,7 +7,7 @@ It supports secure user management, asynchronous database operations, and effici
 
 The system is designed with scalability, modularity, and data security in mind — suitable for both research and production use.
 
-⚙️ Technologies Used
+# ⚙️ Technologies Used
 
 FastAPI — asynchronous web framework for Python
 
@@ -31,7 +31,7 @@ uvicorn — ASGI server for running FastAPI apps
 
 uuid — unique identifier generation for entities
 
-🧩 Modules
+# 🧩 Modules
 
 users → handles registration, login, JWT authentication, and password hashing
 
@@ -45,7 +45,7 @@ database → manages the async SQLAlchemy engine, session, and Base model
 
 ml.kmeans → implements the KMeans++ clustering algorithm with custom Helper and Cluster classes
 
-🔐 Security
+# 🔐 Security
 
 Passwords are hashed using Passlib’s bcrypt algorithm
 
@@ -53,12 +53,12 @@ Tokens are generated using python-jose (JWT)
 
 All protected routes require a valid access token
 
-🧱 Database & Migration Setup
+# 🧱 Database & Migration Setup
 
 This project uses PostgreSQL as the primary database.
 Migrations are managed with Alembic, and asynchronous connections are handled by SQLAlchemy with asyncpg.
 
-🪜 Steps to Set Up:
+#🪜 Steps to Set Up:
 
 1. Create and activate a virtual environment:
 
@@ -102,14 +102,14 @@ target_metadata = Base.metadata
 alembic revision --autogenerate -m "initial migration"
 alembic upgrade head
 ```
-🚀 Running the Application
+#🚀 Running the Application
 
 Once the environment and database are set up, start the FastAPI app:
 ```bash
 uvicorn main:app --reload
 ```
 
-🧮 Machine Learning (KMeans++)
+# 🧮 Machine Learning (KMeans++)
 
 The app integrates a custom-built KMeans++ implementation:
 
@@ -127,7 +127,7 @@ Cluster → manages group memberships
 
 KMeans → performs training and convergence checking
 
-📦 Dependencies
+# 📦 Dependencies
 ```bash
 alembic==1.17.0
 asyncpg==0.30.0
