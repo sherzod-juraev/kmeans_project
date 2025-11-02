@@ -1,4 +1,5 @@
 from typing import Annotated
+from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, Response, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from database import get_db
@@ -29,8 +30,9 @@ async def create_user(
     response.set_cookie(
         key='refresh_token',
         value=create_refresh_token(user_db.id),
+        secure=False,
         max_age=60 * 60 * 24 * config.REFRESH_TOKEN_DAYS,
-        samesite='strict',
+        expires=datetime.now(timezone.utc) + timedelta(days=config.REFRESH_TOKEN_DAYS),
         httponly=True
     )
     token = TokenResponse(
@@ -40,7 +42,7 @@ async def create_user(
 
 
 @user_router.post(
-    '/refresh/token',
+    '/refresh',
     summary='Update access token',
     status_code=status.HTTP_200_OK,
     response_model=TokenResponse
@@ -48,15 +50,15 @@ async def create_user(
 async def update_access_token(
         request: Request,
         response: Response,
-        db: Annotated[AsyncSession, Depends(get_db)]
 ) -> TokenResponse:
     refresh_token = request.cookies.get('refresh_token')
     auth_id = verify_refresh_token(refresh_token)
     response.set_cookie(
         key='refresh_token',
         value=create_refresh_token(auth_id),
+        secure=False,
         max_age=60 * 60 * 24 * config.REFRESH_TOKEN_DAYS,
-        samesite='strict',
+        expires=datetime.now(timezone.utc) + timedelta(days=config.REFRESH_TOKEN_DAYS),
         httponly=True
     )
     token = TokenResponse(

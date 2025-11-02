@@ -6,7 +6,7 @@ from numpy import array
 
 learn_router = APIRouter()
 
-kmeans.k = 3
+kmeans.k = 8
 
 @learn_router.post(
     '/',
